@@ -1,0 +1,106 @@
+晶体单形 3D 图鉴 — 商店提交文案
+==================================================
+
+应用名称
+--------------------------------------------------
+晶体单形 3D 图鉴
+
+短描述（上限 270 字）
+--------------------------------------------------
+收录 7 大晶系、32 晶类、47 种单形的三维晶体形态图鉴。可自由旋转缩放，随时叠加对称轴、对称面与对称中心，也能切换到极射赤平投影对照。无需联网，打开即用。
+
+详细描述
+--------------------------------------------------
+《晶体单形 3D 图鉴》是一份可以转动的晶体形态参考。
+
+教材上的单形图是静态的，一个立方体画在纸上，很难看出它为什么有 3 个 L⁴、9 个对称面。这个工具把它们做成可以自由旋转的三维模型，你转到哪个角度，对称要素就跟到哪个角度。
+
+【收录内容】
+7 大晶系、32 晶类、47 种单形，从最低级的三斜晶系单面，到等轴晶系的六八面体。每种单形都标注了习惯记法与国际记法、单形实际对称型、晶面数量、对称面和对称中心的有无，以及典型矿物。
+
+【可以做什么】
+· 拖动旋转、滚轮缩放，从任意角度观察晶面关系
+· 一键叠加对称轴，L²、L³、L⁴、L⁶ 用不同颜色区分
+· 叠加对称面与对称中心，直观看到它们如何把晶面映射到彼此
+· 打开定向模式，显示 X、Y、Z 与六方晶系的 U 轴，负半轴以虚线区分
+· 每种单形都配有极射赤平投影图，与三维形态逐一对照
+
+【适合谁】
+结晶学与矿物学的初学者，准备考试的地质、材料、化学专业学生，以及需要快速核对单形名称与对称型的从业者。
+
+【离线与隐私】
+全部内容随程序分发，不联网也能完整使用。不收集任何信息，不弹广告，不需要注册。
+
+作为一个地质学学生，我一直希望有这样一份随手可查的晶体形态参考，于是自己做了出来。
+
+关键词（7 个）
+--------------------------------------------------
+结晶学
+矿物学
+晶体形态
+单形
+点群
+对称要素
+极射赤平投影
+
+此版本中的新功能
+--------------------------------------------------
+首个版本：47 种单形三维模型、对称轴与对称面叠加、晶轴定向、极射赤平投影对照。
+
+版权
+--------------------------------------------------
+© 2026 Bo
+
+--------------------------------------------------
+English listing
+--------------------------------------------------
+
+Short description (270 chars max)
+--------------------------------------------------
+An interactive 3D atlas of 47 crystal forms across 32 crystal classes. Rotate freely, overlay symmetry axes, planes and centers, and compare each form with its stereographic projection. Fully offline, no data collected.
+
+Description
+--------------------------------------------------
+Crystal Forms is a rotatable reference for crystal morphology.
+
+A printed diagram shows one fixed view. This app turns the same forms into 3D models you can orbit freely, so the symmetry elements stay attached to the faces as you move around them.
+
+What's inside
+· 7 crystal systems, 32 crystal classes, 47 forms — from the triclinic pedion to the isometric hexoctahedron.
+· Each form lists its Chinese and international class notation, actual point group, face count, presence of symmetry planes and center, and a typical mineral.
+· Duplex names are shown in both Chinese and standard English terminology (e.g. Hexagonal dipyramid · Hexagonal).
+
+What you can do
+· Drag to rotate, scroll to zoom.
+· Overlay symmetry axes, color-coded by order.
+· Overlay symmetry planes and the center of symmetry.
+· Switch on crystallographic axes, with negative directions drawn dashed.
+· Compare every form with its stereographic projection.
+
+Offline and private
+Everything ships with the app. No network requests, no accounts, no ads, no data collection.
+
+Note: the interface is in Chinese; form names include standard English terms.
+
+Keywords
+--------------------------------------------------
+crystallography, mineralogy, crystal forms, point group, symmetry, stereographic projection
+
+What's new
+--------------------------------------------------
+First release: 3D models of 47 crystal forms, symmetry overlay, crystallographic axes, stereographic projections.
+
+--------------------------------------------------
+提交前核对
+--------------------------------------------------
+[ ] 站点已部署到 HTTPS 地址，首页可正常打开
+[ ] privacy.html 链接可公开访问
+[ ] manifest.webmanifest 可访问，图标 200
+[ ] PWABuilder 三项检测全绿
+[ ] msix 已生成，应用名与 manifest 一致
+[ ] 截图使用 screenshots/ 内两张，尺寸 1920x1080 / 1366x768
+[ ] 商店图标使用 icons/icon-512.png
+[ ] 产品声明中 AI 一项不勾选
+[ ] 类别 Education 或 Reference
+[ ] 定价 Free，市场选全球
+[ ] 发布者显示名 Bo
