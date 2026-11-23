@@ -1,4 +1,4 @@
-const CACHE = 'crystal-forms-v2';
+const CACHE = 'crystal-forms-v3';
 const CORE = [
   './',
   './index.html',

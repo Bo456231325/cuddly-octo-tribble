@@ -2,7 +2,7 @@
   "id": "./",
   "name": "晶体单形 3D 图鉴",
   "short_name": "晶体图鉴",
-  "description": "47 种单形、32 晶类，可自由旋转、可叠加对称要素与极射赤平投影的 3D 结晶学图鉴。",
+  "description": "47 种单形、31 个晶类代表，可自由旋转、可叠加对称要素与极射赤平投影的 3D 结晶学图鉴。",
   "lang": "zh-CN",
   "dir": "ltr",
   "start_url": "./index.html",

@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#080b13">
-<meta name="description" content="47 种单形、32 晶类，可自由旋转、可叠加对称要素与极射赤平投影的 3D 结晶学图鉴。">
+<meta name="description" content="47 种单形、31 个晶类代表，可自由旋转、可叠加对称要素与极射赤平投影的 3D 结晶学图鉴。">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" type="image/png" sizes="32x32" href="icons/icon-32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
@@ -129,6 +129,10 @@ a{color:inherit}
   flex:0 0 auto;padding:11px 18px;border-top:1px solid var(--line);
   font-size:9.5px;color:var(--muted-2);letter-spacing:.14em;display:flex;justify-content:space-between;
 }
+.side-note{
+  flex:0 0 auto;padding:10px 18px 0;font-size:9.5px;line-height:1.7;
+  color:var(--muted-2);letter-spacing:.06em;
+}
 
 /* ---------------- stage ---------------- */
 .stage{position:relative;min-height:0;overflow:hidden;isolation:isolate}
@@ -214,7 +218,7 @@ a{color:inherit}
 .mini-row .sym{display:flex;align-items:center;gap:5px}
 .mini-row .sym i{width:5px;height:5px;border-radius:50%;display:block}
 .chiral{
-  display:none;align-items:center;gap:8px;margin-top:12px;padding:7px 8px 7px 11px;
+  display:none;align-items:center;flex-wrap:wrap;gap:8px;margin-top:12px;padding:7px 8px 7px 11px;
   border:1px solid rgba(227,177,116,.22);border-radius:9px;background:rgba(227,177,116,.055);
 }
 .chiral .lab{font-size:9.5px;letter-spacing:.16em;color:var(--muted);margin-right:auto}
@@ -260,10 +264,19 @@ a{color:inherit}
 }
 @keyframes stereoIn{from{opacity:0;transform:translate(-50%,-47%)}to{opacity:1;transform:translate(-50%,-50%)}}
 .stereo-head{display:flex;align-items:flex-start;gap:12px;padding:14px 16px 10px;border-bottom:1px solid var(--line)}
+.stereo-head>div:first-child{min-width:0}
 .stereo-title{font-family:var(--serif);font-size:16px;font-weight:600;letter-spacing:.14em;color:#eef3fb}
 .stereo-sub{font-size:10.5px;color:var(--muted);letter-spacing:.05em;margin-top:4px;line-height:1.65}
+.stereo-tools{margin-left:auto;flex:0 0 auto;display:flex;align-items:center;gap:8px}
+.stereo-toggle{
+  display:flex;align-items:center;gap:6px;height:26px;padding:0 9px;border-radius:7px;
+  border:1px solid var(--line);color:var(--muted);font-size:9.5px;letter-spacing:.06em;transition:.16s;
+}
+.stereo-toggle svg{width:13px;height:13px;flex:0 0 auto}
+.stereo-toggle:hover{color:#e9eef8;border-color:var(--line-2);background:rgba(255,255,255,.05)}
+.stereo-toggle.on{color:#f2c078;border-color:rgba(242,192,120,.34);background:rgba(242,192,120,.1)}
 .stereo-close{
-  margin-left:auto;flex:0 0 auto;width:28px;height:28px;border-radius:8px;
+  flex:0 0 auto;width:28px;height:28px;border-radius:8px;
   border:1px solid var(--line);color:var(--muted);font-size:17px;line-height:1;
   display:flex;align-items:center;justify-content:center;transition:.16s;
 }
@@ -276,6 +289,7 @@ a{color:inherit}
 .stereo-chip{display:flex;align-items:center;gap:7px;font-size:10.5px;color:#c3cbd9;letter-spacing:.05em;white-space:nowrap}
 .stereo-chip svg{width:17px;height:17px;flex:0 0 auto;overflow:visible}
 .stereo-note{font-size:9.5px;line-height:1.95;color:var(--muted-2);letter-spacing:.03em;border-top:1px solid var(--line);padding-top:11px}
+.stereo-extra{font-size:10.5px;line-height:1.85;color:#9fb2cf;letter-spacing:.03em;border-left:2px solid rgba(242,192,120,.55);padding-left:10px}
 
 /* fade animation */
 @keyframes cardIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
@@ -337,6 +351,9 @@ a{color:inherit}
   .stereo-head{padding:11px 13px 9px}
   .stereo-title{font-size:14px;letter-spacing:.1em}
   .stereo-sub{font-size:9.5px}
+  .stereo-toggle{height:24px;padding:0 7px;font-size:9px;gap:5px}
+  .stereo-toggle svg{width:12px;height:12px}
+  .stereo-close{width:26px;height:26px}
   .stereo-body{flex-direction:column;gap:10px;padding:10px 13px 13px;align-items:stretch}
   .stereo-fig{width:min(80vw,300px);align-self:center}
   .stereo-side{min-width:0;gap:10px}
@@ -366,7 +383,7 @@ a{color:inherit}
       </svg>
       <div>
         <h1>晶体单形<span>3D 图鉴</span></h1>
-        <p>结晶学与矿物学 · 32 晶类 · 47 种单形</p>
+        <p>结晶学与矿物学 · 31 个晶类代表 · 47 种单形</p>
       </div>
     </div>
     <div class="top-right">
@@ -385,7 +402,8 @@ a{color:inherit}
         <span class="t">单形目录</span>
       </div>
       <div class="list" id="list"></div>
-      <div class="side-foot"><span>单形图录</span><span>32 晶类 · 47 单形</span></div>
+      <div class="side-note">晶类、单形符号与对称型记法依《结晶学及矿物学》通用写法；无法确证者留空不写。</div>
+      <div class="side-foot"><span>单形图录</span><span>31 个晶类代表 · 47 单形</span></div>
     </aside>
 
     <section class="stage" id="stage">
@@ -427,13 +445,20 @@ a{color:inherit}
         <div class="card-body">
           <div class="facts" id="facts"></div>
           <div class="example" id="exampleRow"><span>典型矿物</span><b id="exampleVal">—</b></div>
-          <p class="desc" id="desc"></p>
-          <div class="mini-row" id="miniRow"></div>
           <div class="chiral" id="chiralCtrl">
             <span class="lab">手性对映</span>
             <button data-m="0" class="on">左形</button>
             <button data-m="1">右形</button>
           </div>
+          <div class="chiral" id="varCtrl">
+            <span class="lab">所在晶类</span>
+            <button data-v="-1" class="on">1̄</button>
+            <button data-v="2">2</button>
+            <button data-v="m">m</button>
+            <button data-v="2/m">2/m</button>
+          </div>
+          <p class="desc" id="desc"></p>
+          <div class="mini-row" id="miniRow"></div>
         </div>
         <div class="card-foot">
           <span id="footNote">等距单形 · 单位面网 d = 1</span>
@@ -453,13 +478,20 @@ a{color:inherit}
         <div class="stereo-title">极射赤平投影</div>
         <div class="stereo-sub" id="stereoSub">—</div>
       </div>
-      <button class="stereo-close" id="stereoClose" aria-label="关闭">×</button>
+      <div class="stereo-tools">
+        <button class="stereo-toggle on" id="btnPoles" type="button" aria-pressed="true" title="显示 / 隐藏晶面极点">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="7" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8.8 8.8L15.2 15.2M15.2 8.8L8.8 15.2" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          晶面极点
+        </button>
+        <button class="stereo-close" id="stereoClose" aria-label="关闭">×</button>
+      </div>
     </div>
     <div class="stereo-body">
       <div class="stereo-fig" id="stereoFigure"></div>
       <div class="stereo-side">
         <div class="stereo-legend" id="stereoLegend"></div>
-        <p class="stereo-note">上半球极射投影：c 轴垂直纸面向外，a 轴向右、b 轴向上；竖直轴的极点在圆心，水平轴两端落在基圆上。对称面投影为大圆弧，基圆即水平面。</p>
+        <p class="stereo-extra" id="stereoExtra"></p>
+        <p class="stereo-note">上半球极射投影：c 轴垂直纸面向外，a 轴向右、b 轴向上。晶面极点用空心圈表示上半球的面（极点落在基圆上的水平晶面也画圈），用叉表示下半球的面；上下两个面投影到同一点时，圈与叉叠在一起。竖直轴的极点在圆心，水平轴两端落在基圆上；对称面投影为大圆弧，基圆即水平面。</p>
       </div>
     </div>
   </div>
@@ -1833,16 +1865,16 @@ function openCone(planes, ratio = 0.62) {
 }
 
 /* ==========================================================
-   单形表（32 晶类 + 常用单形）
+   单形表（31 个晶类代表 + 常用单形）
    ========================================================== */
 const DATA = [
   /* ---------------- 低级晶族 ---------------- */
   { id: 1, cat: '低级晶族', sys: '三斜晶系', name: '单面', habit: 'L¹', intl: '1', point: 'C₁',
     ex: '—', axis: '无对称要素', shape: 'pedion', faces: '1',
-    desc: '只有一个晶面，除一次轴外无任何对称要素。属于开放形，不能单独封闭空间。' },
+    desc: '只有一个晶面，除一次轴外无任何对称要素。属于开放形，不能单独封闭空间。晶面符号写作 {hkl}；柱状晶体的顶面常为 {001}。' },
   { id: 2, cat: '低级晶族', sys: '三斜晶系', name: '平行双面', habit: 'C', intl: '1̄', point: 'Cᵢ',
-    ex: '石墨（片状）', axis: '仅对称中心 C', shape: 'pinacoid', faces: '2',
-    desc: '由两个互相平行的相等晶面组成，二者通过对称中心相联系，是开放形。' },
+    ex: '斜长石的 {010} 板面', axis: '仅对称中心 C', shape: 'pinacoid', faces: '2',
+    desc: '由两个互相平行的相等晶面组成，是开放形。它本身只是一个几何形态，具体矿物随所处晶类而变：1̄ 类里可以只有对称中心（斜长石的 {010} 板面），2、m、2/m 类里分别由二次轴或对称面把两个面联系起来（石膏的 {010} 板面属 2/m 类）；到了中级晶族，同样的平行双面就出现在柱体的顶、底面（绿柱石六方柱的 {0001}）。单个面的符号写作 {hkl}；柱体的顶、底面则常为 {001}。' },
   { id: 3, cat: '低级晶族', sys: '单斜晶系', name: '轴双面', habit: 'L²', intl: '2', point: 'C₂',
     ex: '—', axis: '竖直方向为 b 轴（L²）', shape: 'sphenoid', faces: '2',
     desc: '两个晶面沿一条棱相交，绕该棱中点的二次轴旋转 180° 后二者重合（不是镜像关系）。开放形。' },
@@ -1855,7 +1887,7 @@ const DATA = [
 
   { id: 6, cat: '低级晶族', sys: '斜方晶系', name: '斜方四面体', habit: '3L²', intl: '222', point: 'D₂',
     ex: '泻利盐', axis: '三条互相垂直的 L²（a、b、c）', shape: { g: '222', seed: [1, 0.95, 0.78] }, faces: '4',
-    desc: '四个全等的不等边三角形晶面，无对称中心；三条二次轴分别穿过三对对棱的中点，上下顶点错开 90°。' },
+    desc: '四个全等的不等边三角形晶面，无对称中心；三条二次轴分别垂直平分三对对棱，每对对棱互相垂直。' },
   { id: 7, cat: '低级晶族', sys: '斜方晶系', name: '斜方单锥', habit: 'L²2P', intl: 'mm2', point: 'C₂ᵥ',
     ex: '异极矿', axis: '竖直方向为 c 轴', shape: { g: 'mm2', seed: [1, 0.62, 0.42], open: true }, faces: '4',
     desc: '四个晶面会于锥顶，无对称中心；水平切面为菱形（对角线长不等，故与四方单锥的正方形切面不同）。开放形，无底面。' },
@@ -1865,10 +1897,10 @@ const DATA = [
 
   /* ---------------- 中级晶族：三方 ---------------- */
   { id: 9, cat: '中级晶族', sys: '三方晶系', name: '三方单锥', habit: 'L³', intl: '3', point: 'C₃',
-    ex: '细硫砷铅矿', axis: '竖直方向为 L³', shape: { g: '3', seed: dir(0, 20), open: true }, faces: '3',
-    desc: '三个全等晶面会于锥顶，L³ 通过锥顶；底面为等边三角形。开放形，无底面。' },
-  { id: 10, cat: '中级晶族', sys: '三方晶系', name: '菱面体', habit: 'L³C', intl: '3̄', point: 'C₃ᵢ', axesG: '-3m', axesSpin: 30,
-    ex: '白云石', axis: '竖直方向为 L³，另有 3L² 分别穿过三对侧棱中点（形体几何对称）', shape: { g: '-3', seed: dir(0, 32) }, faces: '6',
+    ex: '电气石（锥形端面）', axis: '竖直方向为 L³', shape: { g: '3', seed: dir(0, 20), open: true }, faces: '3',
+    desc: '三个全等晶面会于锥顶，L³ 通过锥顶；水平切面为等边三角形。开放形，无底面。' },
+  { id: 10, cat: '中级晶族', sys: '三方晶系', name: '菱面体', habit: 'L³ᵢ（= L³ + C）', intl: '3̄', point: 'C₃ᵢ', axesG: '-3m', axesSpin: 30,
+    ex: '方解石（解理块 {10ī1}）', axis: '竖直方向为 L³，含对称中心 C（晶类 L³C）；形体几何对称另有 3L² 和 3 个对称面', shape: { g: '-3', seed: dir(0, 32) }, faces: '6',
     desc: '六个菱形晶面，L³ 通过上下两个三条棱交汇的顶角——可看作立方体沿体对角线压扁。方解石、白云石的解理块即此形。该多面体外形本身还具有 3 个横向 L²，各穿过一对侧棱的中点。' },
   { id: 11, cat: '中级晶族', sys: '三方晶系', name: '三方偏方面体', habit: 'L³3L²', intl: '32', point: 'D₃',
     ex: 'α-石英', axis: '竖直方向为 L³，另有 3L²', shape: { g: '32', seed: dir(18, 38) }, faces: '6', chiral: true,
@@ -1877,23 +1909,23 @@ const DATA = [
     ex: '电气石', axis: '竖直方向为 L³，含 3 个对称面', shape: { g: '3m', seed: dir(20, 26) }, faces: '6', open: true,
     desc: '六个晶面会于锥顶。水平切面为复三角形：六个边长短交替排列（三长三短），不是正六边形；相邻晶面大小不等。开放形。' },
   { id: 13, cat: '中级晶族', sys: '三方晶系', name: '复三方偏三角面体', habit: 'L³3L²3PC', intl: '3̄m', point: 'D₃d',
-    ex: '方解石', axis: '竖直方向为 L³（= 3̄），另有 3L²、3P、C', shape: { g: '-3m', seed: dir(22, 26) }, faces: '12',
-    desc: '十二个不等边三角形晶面，上下各六个交错排列，即方解石最常见的“犬牙状”晶体（偏三角面体）。含 L³、3L² 和 3 个对称面，并有对称中心。' },
+    ex: '方解石（犬牙状晶体）', axis: '竖直方向为 L³（= 3̄），另有 3L²、3P、C', shape: { g: '-3m', seed: dir(22, 26) }, faces: '12',
+    desc: '十二个不等边三角形晶面，上下各六个交错排列，即方解石著名的“犬牙状”晶体（偏三角面体）。含 L³、3L² 和 3 个对称面，并有对称中心。' },
 
   /* ---------------- 中级晶族：四方 ---------------- */
   { id: 14, cat: '中级晶族', sys: '四方晶系', name: '四方单锥', habit: 'L⁴', intl: '4', point: 'C₄',
-    ex: '四银铅矿', axis: '竖直方向为 L⁴', shape: { g: '4', seed: dir(0, 24), open: true }, faces: '4',
+    ex: '锆石（锥形端面）', axis: '竖直方向为 L⁴', shape: { g: '4', seed: dir(0, 24), open: true }, faces: '4',
     desc: '四个全等晶面会于锥顶，L⁴ 通过锥顶；水平切面为正方形。开放形。' },
   { id: 15, cat: '中级晶族', sys: '四方晶系', name: '四方双锥', habit: 'L⁴PC', intl: '4/m', point: 'C₄ₕ', axesG: '4/mmm',
-    ex: '白钨矿', axis: '竖直方向为 L⁴，另有 4L²（形体几何对称）', shape: { g: '4/m', seed: [1, 0, 0.92] }, faces: '8',
+    ex: '白钨矿、锆石', axis: '竖直方向为 L⁴，另有 4L²（形体几何对称）', shape: { g: '4/m', seed: [1, 0, 0.92] }, faces: '8',
     desc: '八个三角形晶面，上下各四个，赤道切面为正方形；含对称中心和水平对称面。该多面体外形本身还具有 4 个横向 L²。' },
   { id: 16, cat: '中级晶族', sys: '四方晶系', name: '四方偏方面体', habit: 'L⁴4L²', intl: '422', point: 'D₄',
     ex: '镍矾', axis: '竖直方向为 L⁴，另有 4L²', shape: { g: '422', seed: dir(20, 40) }, faces: '8', chiral: true,
     desc: '八个风筝形晶面，上下两环错开，无对称面和对称中心，有左形、右形之分。' },
   { id: 17, cat: '中级晶族', sys: '四方晶系', name: '复四方单锥', habit: 'L⁴4P', intl: '4mm', point: 'C₄ᵥ',
-    ex: '羟氯铅矿', axis: '竖直方向为 L⁴，含 4 个对称面', shape: { g: '4mm', seed: dir(18, 24) }, faces: '8', open: true,
+    ex: '羟氯铜铅矿', axis: '竖直方向为 L⁴，含 4 个对称面', shape: { g: '4mm', seed: dir(18, 24) }, faces: '8', open: true,
     desc: '八个晶面会于锥顶。水平切面为复正方形：八个边长短交替排列，不是正八边形。开放形。' },
-  { id: 18, cat: '中级晶族', sys: '四方晶系', name: '复四方偏三角面体', habit: 'Li⁴2L²2P', intl: '4̄2m', point: 'D₂d',
+  { id: 18, cat: '中级晶族', sys: '四方晶系', name: '复四方偏三角面体', habit: 'L⁴ᵢ2L²2P', intl: '4̄2m', point: 'D₂d',
     ex: '黄铜矿', axis: '竖直方向为 L⁴ᵢ，含 2 个对称面', shape: { g: '-42m', seed: dir(22, 28) }, faces: '8',
     desc: '八个不等边三角形晶面，上下各四个交错排列，是黄铜矿的典型形态；含 L⁴ᵢ、2L²、2P，无对称中心。' },
   { id: 19, cat: '中级晶族', sys: '四方晶系', name: '复四方双锥', habit: 'L⁴4L²5PC', intl: '4/mmm', point: 'D₄ₕ',
@@ -1902,21 +1934,21 @@ const DATA = [
 
   /* ---------------- 中级晶族：六方 ---------------- */
   { id: 20, cat: '中级晶族', sys: '六方晶系', name: '六方单锥', habit: 'L⁶', intl: '6', point: 'C₆',
-    ex: '霞石', axis: '竖直方向为 L⁶', shape: { g: '6', seed: dir(0, 23), open: true }, faces: '6',
+    ex: '—', axis: '竖直方向为 L⁶', shape: { g: '6', seed: dir(0, 23), open: true }, faces: '6',
     desc: '六个全等晶面会于锥顶，L⁶ 通过锥顶；水平切面为正六边形。开放形。' },
-  { id: 21, cat: '中级晶族', sys: '三方晶系', name: '三方双锥', habit: 'L³P（= Li⁶）', intl: '6̄', point: 'C₃ₕ',
+  { id: 21, cat: '中级晶族', sys: '三方晶系', name: '三方双锥', habit: 'L³P（= L⁶ᵢ）', intl: '6̄', point: 'C₃ₕ',
     ex: '磷酸氢二银', axis: '竖直方向为 L³，另有水平对称面', shape: { g: '-6', seed: dir(0, 30) }, faces: '6',
     desc: '六个三角形晶面，上下各三个，赤道切面为等边三角形。竖直方向为 L³，另有水平对称面（L³ 与水平面合起来也记作 L⁶ᵢ），外形呈三方对称，本图鉴按外形归入三方晶系。' },
   { id: 22, cat: '中级晶族', sys: '六方晶系', name: '六方双锥', habit: 'L⁶PC', intl: '6/m', point: 'C₆ₕ',
-    ex: '磷灰石', axis: '竖直方向为 L⁶，另有 6L²', shape: { g: '6/m', seed: [1, 0, 0.9] }, faces: '12',
+    ex: '磷灰石', axis: '竖直方向为 L⁶，含水平对称面和对称中心；形体几何对称另有 6L² 和 6 个竖直对称面', shape: { g: '6/m', seed: [1, 0, 0.9] }, faces: '12',
     desc: '十二个三角形晶面，上下各六个，赤道切面为正六边形；含对称中心和水平对称面。磷灰石常见。' },
   { id: 23, cat: '中级晶族', sys: '六方晶系', name: '六方偏方面体', habit: 'L⁶6L²', intl: '622', point: 'D₆',
     ex: 'β-石英', axis: '竖直方向为 L⁶，另有 6L²', shape: { g: '622', seed: dir(10, 36) }, faces: '12', chiral: true,
     desc: '十二个风筝形晶面，上下两环错开，无对称面和对称中心，有左形、右形之分。β-石英常见。' },
   { id: 24, cat: '中级晶族', sys: '六方晶系', name: '复六方单锥', habit: 'L⁶6P', intl: '6mm', point: 'C₆ᵥ',
     ex: '红锌矿', axis: '竖直方向为 L⁶，含 6 个对称面', shape: { g: '6mm', seed: dir(12, 25) }, faces: '12', open: true,
-    desc: '十二个晶面会于锥顶。水平切面为复六边形：十二个边长短交替（hki0 方向），镜面投影为 {hki0}；相邻晶面不等。开放形。' },
-  { id: 25, cat: '中级晶族', sys: '三方晶系', name: '复三方双锥', habit: 'L³3L²4P（= Li⁶3L²3P）', intl: '6̄m2', point: 'D₃ₕ',
+    desc: '十二个晶面会于锥顶，晶面符号为 {hkīl}。水平切面为复六边形：十二条边长短交替，相邻晶面大小不等。开放形。' },
+  { id: 25, cat: '中级晶族', sys: '三方晶系', name: '复三方双锥', habit: 'L³3L²4P（= L⁶ᵢ3L²3P）', intl: '6̄m2', point: 'D₃ₕ',
     ex: '蓝锥矿', axis: '竖直方向为 L³，另有 3L²、3P 和水平对称面', shape: { g: '-6m2', seed: dir(18, 34) }, faces: '12',
     desc: '十二个晶面，上下各六个交错排列；赤道切面为复三角形（长短边交替）。竖直方向为 L³，含 3L²、3P 和水平对称面（也记作 L⁶ᵢ），外形呈复三方对称，本图鉴按外形归入三方晶系。' },
   { id: 26, cat: '中级晶族', sys: '六方晶系', name: '复六方双锥', habit: 'L⁶6L²7PC', intl: '6/mmm', point: 'D₆ₕ',
@@ -1928,42 +1960,42 @@ const DATA = [
     ex: '香花石', axis: '4L³ + 3L²（无对称面）', shape: { g: '23', seed: [1, 0.72, 0.44] }, faces: '12', chiral: true,
     desc: '十二个五边形晶面，可看作四面体的每个晶面隆起三条棱；无对称面和对称中心，有左形、右形之分。' },
   { id: 28, cat: '高级晶族', sys: '等轴晶系', name: '偏方复十二面体', habit: '3L²4L³3PC', intl: 'm3̄', point: 'Tₕ',
-    ex: '黄铁矿', axis: '4L³ + 3L² + 3P + C', shape: { g: 'm3', seed: [1, 0.62, 0.38] }, faces: '24',
+    ex: '—', axis: '4L³ + 3L² + 3P + C', shape: { g: 'm3', seed: [1, 0.62, 0.38] }, faces: '24',
     desc: '二十四个偏方形（风筝形）晶面，可看作立方体与八面体之间的过渡形；含 3 个对称面和对称中心。注意不是五角十二面体（后者只有 12 个五边形晶面）。' },
   { id: 29, cat: '高级晶族', sys: '等轴晶系', name: '五角三八面体', habit: '3L⁴4L³6L²', intl: '432', point: 'O',
-    ex: '赤铜矿', axis: '3L⁴ + 4L³ + 6L²', shape: { g: '432', seed: [1, 0.66, 0.40] }, faces: '24', chiral: true,
-    desc: '二十四个五边形晶面，可看作八面体的每个晶面隆起三条棱；无对称面、无对称中心，有左形、右形之分。赤铜矿常见。' },
+    ex: '—', axis: '3L⁴ + 4L³ + 6L²', shape: { g: '432', seed: [1, 0.66, 0.40] }, faces: '24', chiral: true,
+    desc: '二十四个五边形晶面，可看作八面体的每个晶面隆起三条棱；无对称面、无对称中心，有左形、右形之分。该晶类的天然矿物少见。' },
   { id: 30, cat: '高级晶族', sys: '等轴晶系', name: '六四面体', habit: '3L⁴ᵢ4L³6P', intl: '4̄3m', point: 'Td',
     ex: '闪锌矿', axis: '3L⁴ᵢ + 4L³ + 6P（无对称中心）', shape: { g: '-43m', seed: [1, 0.62, 0.38] }, faces: '24',
-    desc: '二十四个不等边三角形晶面（hkl 型），相当于四面体每个晶面隆起六条棱，故称六四面体；含 6 个对称面但无对称中心。闪锌矿常见。与四六面体（hk0 型、24 个等腰三角形）不同。' },
+    desc: '二十四个不等边三角形晶面（{hkl} 型），相当于四面体每个晶面隆起六条棱，故称六四面体；含 6 个对称面但无对称中心。闪锌矿常见。与四六面体（{hk0} 型、24 个等腰三角形）不同。' },
   { id: 31, cat: '高级晶族', sys: '等轴晶系', name: '六八面体', habit: '3L⁴4L³6L²9PC', intl: 'm3̄m', point: 'Oₕ',
-    ex: '方铅矿', axis: '3L⁴ + 4L³ + 6L² + 9P + C', shape: { g: 'm3m', seed: [1, 0.68, 0.40] }, faces: '48',
-    desc: '四十八个三角形晶面，是等轴晶系也是全部 32 晶类中对称程度最高的单形；相当于立方体与八面体的最完全过渡形。方铅矿常见。' },
+    ex: '金刚石', axis: '3L⁴ + 4L³ + 6L² + 9P + C', shape: { g: 'm3m', seed: [1, 0.68, 0.40] }, faces: '48',
+    desc: '四十八个三角形晶面，是等轴晶系也是全部 32 晶类中对称程度最高的单形；相当于立方体与八面体的最完全过渡形。' },
 
   /* ---------------- 常用单形（并入各晶系） ---------------- */
   { id: 32, cat: '中级晶族', sys: '三方晶系', name: '三方柱', habit: 'L³3L²', intl: '32', point: 'D₃',
-    ex: '—', axis: '柱轴为 L³，另有 3L² 和水平对称面', shape: { prism: 'tri' }, faces: '3', open: true,
+    ex: '电气石', axis: '柱轴为 L³，另有 3L²；形体几何对称还有 3 个竖直对称面和水平对称面', shape: { prism: 'tri' }, faces: '3', open: true,
     desc: '三个柱面，横切面为等边三角形，无顶底面。三方柱与三方双锥常组成聚形。' },
   { id: 33, cat: '中级晶族', sys: '三方晶系', name: '复三方柱', habit: 'L³3P', intl: '3m', point: 'C₃ᵥ',
-    ex: '—', axis: '柱轴为 L³，另有 3L² 和水平对称面', shape: { prism: 'ditri' }, faces: '6', open: true,
+    ex: '电气石', axis: '柱轴为 L³，含 3P；形体几何对称另有 3L² 和水平对称面', shape: { prism: 'ditri' }, faces: '6', open: true,
     desc: '六个柱面，横切面为复三角形（长短边交替），无顶底面。' },
   { id: 34, cat: '中级晶族', sys: '四方晶系', name: '四方柱', habit: 'L⁴4L²5PC', intl: '4/mmm', point: 'D₄ₕ',
     ex: '锆石', axis: '柱轴为 L⁴，另有 4L²', shape: { prism: 'tetra' }, faces: '4', open: true,
     desc: '四个柱面，横切面为正方形，无顶底面；与斜方柱的菱形切面区分。' },
   { id: 35, cat: '中级晶族', sys: '四方晶系', name: '复四方柱', habit: 'L⁴4L²5PC', intl: '4/mmm', point: 'D₄ₕ',
-    ex: '—', axis: '柱轴为 L⁴，另有 4L²', shape: { prism: 'ditetra' }, faces: '8', open: true,
+    ex: '符山石', axis: '柱轴为 L⁴，另有 4L²', shape: { prism: 'ditetra' }, faces: '8', open: true,
     desc: '八个柱面，横切面为复正方形（长短边交替），无顶底面。' },
   { id: 36, cat: '中级晶族', sys: '六方晶系', name: '六方柱', habit: 'L⁶6L²7PC', intl: '6/mmm', point: 'D₆ₕ',
     ex: '绿柱石', axis: '柱轴为 L⁶，另有 6L²', shape: { prism: 'hex' }, faces: '6', open: true,
     desc: '六个柱面，横切面为正六边形，无顶底面。绿柱石柱面即此形。' },
   { id: 37, cat: '中级晶族', sys: '六方晶系', name: '复六方柱', habit: 'L⁶6L²7PC', intl: '6/mmm', point: 'D₆ₕ',
-    ex: '—', axis: '柱轴为 L⁶，另有 6L²', shape: { prism: 'dihex' }, faces: '12', open: true,
+    ex: '绿柱石', axis: '柱轴为 L⁶，另有 6L²', shape: { prism: 'dihex' }, faces: '12', open: true,
     desc: '十二个柱面，横切面为复六边形（长短边交替），无顶底面。' },
   { id: 38, cat: '高级晶族', sys: '等轴晶系', name: '立方体', habit: '3L⁴4L³6L²9PC', intl: 'm3̄m', point: 'Oₕ',
     ex: '石盐、黄铁矿', axis: '3L⁴ + 4L³ + 6L² + 9P + C', shape: { g: 'm3m', seed: [1, 0, 0] }, faces: '6', fixed: true,
     desc: '六个正方形晶面，面角均为 90°，是等轴晶系最基本的单形。' },
   { id: 39, cat: '高级晶族', sys: '等轴晶系', name: '八面体', habit: '3L⁴4L³6L²9PC', intl: 'm3̄m', point: 'Oₕ',
-    ex: '磁铁矿', axis: '4L³ + 3L⁴ + 6L² + 9P + C', shape: { g: 'm3m', seed: [1, 1, 1] }, faces: '8', fixed: true,
+    ex: '磁铁矿、金刚石', axis: '4L³ + 3L⁴ + 6L² + 9P + C', shape: { g: 'm3m', seed: [1, 1, 1] }, faces: '8', fixed: true,
     desc: '八个等边三角形晶面，4L³ 通过四对顶角；与立方体互为对偶形。' },
   { id: 40, cat: '高级晶族', sys: '等轴晶系', name: '四面体', habit: '3L⁴ᵢ4L³6P', intl: '4̄3m', point: 'Td',
     ex: '闪锌矿', axis: '3L⁴ᵢ（过对棱中点）+ 4L³（过四个顶点）', shape: { g: '-43m', seed: [1, 1, 1] }, faces: '4', fixed: true,
@@ -1973,23 +2005,78 @@ const DATA = [
     desc: '十二个菱形晶面，每个晶面垂直于一条 L²；是立方体与八面体的又一种过渡形。' },
   { id: 42, cat: '高级晶族', sys: '等轴晶系', name: '五角十二面体', habit: '3L²4L³3PC', intl: 'm3̄', point: 'Tₕ',
     ex: '黄铁矿', axis: '4L³ + 3L² + 3P + C', shape: { g: 'm3', seed: [0, 1, 1.3] }, faces: '12', fixed: true,
-    desc: '十二个五边形晶面，晶面与坐标轴斜交（h k 0 型）；黄铁矿最常见的形态；含 3 个对称面和对称中心。注意与偏方复十二面体（24 个风筝形面）区分。' },
+    desc: '十二个五边形晶面，晶面与坐标轴斜交（{hk0} 型）；是黄铁矿的典型形态之一；含 3 个对称面和对称中心。注意与偏方复十二面体（24 个风筝形面）区分。' },
   { id: 43, cat: '高级晶族', sys: '等轴晶系', name: '三角三八面体', habit: '3L⁴4L³6L²9PC', intl: 'm3̄m', point: 'Oₕ',
     ex: '—', axis: '3L⁴ + 4L³ + 6L² + 9P + C', shape: { g: '432', seed: [1, 1.35, 1.35] }, faces: '24', fixed: true,
-    desc: '二十四个等腰三角形晶面（hkk 型），可看作八面体每个面隆起三条棱；晶类为 m3̄m，含 9 个对称面和对称中心。' },
+    desc: '二十四个等腰三角形晶面（{hhl} 型），可看作八面体每个面隆起三条棱；晶类为 m3̄m，含 9 个对称面和对称中心。' },
   { id: 44, cat: '高级晶族', sys: '等轴晶系', name: '四角三八面体', habit: '3L⁴4L³6L²9PC', intl: 'm3̄m', point: 'Oₕ',
-    ex: '—', axis: '3L⁴ + 4L³ + 6L² + 9P + C', shape: { g: '432', seed: [1, 1, 1.62] }, faces: '24', fixed: true,
-    desc: '二十四个四边形晶面（hhl 型），可看作八面体每个面隆起四条棱；晶类为 m3̄m，含 9 个对称面和对称中心。' },
+    ex: '石榴子石', axis: '3L⁴ + 4L³ + 6L² + 9P + C', shape: { g: '432', seed: [1, 1, 1.62] }, faces: '24', fixed: true,
+    desc: '二十四个四边形晶面（{hkk} 型），可看作八面体每个面隆起四条棱；晶类为 m3̄m，含 9 个对称面和对称中心。' },
   { id: 45, cat: '高级晶族', sys: '等轴晶系', name: '三角三四面体', habit: '3L⁴ᵢ4L³6P', intl: '4̄3m', point: 'Td',
     ex: '—', axis: '3L⁴ᵢ + 4L³ + 6P', shape: { g: '23', seed: [1, 1, 1.18] }, faces: '12', fixed: true,
-    desc: '十二个等腰三角形晶面（hkk 型），可看作四面体每个晶面隆起三条棱；属 4̄3m，含 6 个对称面、无对称中心。' },
+    desc: '十二个等腰三角形晶面（{hkk} 型），可看作四面体每个晶面隆起三条棱；属 4̄3m，含 6 个对称面、无对称中心。' },
   { id: 46, cat: '高级晶族', sys: '等轴晶系', name: '四角三四面体', habit: '3L⁴ᵢ4L³6P', intl: '4̄3m', point: 'Td',
     ex: '—', axis: '3L⁴ᵢ + 4L³ + 6P', shape: { g: '23', seed: [1, 1.18, 1.18] }, faces: '12', fixed: true,
-    desc: '十二个四边形晶面（hhl 型）；与三角三四面体同为 12 面，但晶面形状不同；属 4̄3m，含 6 个对称面、无对称中心。' },
+    desc: '十二个四边形晶面（{hhl} 型）；与三角三四面体同为 12 面，但晶面形状不同；属 4̄3m，含 6 个对称面、无对称中心。' },
   { id: 47, cat: '高级晶族', sys: '等轴晶系', name: '四六面体', habit: '3L⁴4L³6L²9PC', intl: 'm3̄m', point: 'Oₕ',
     ex: '萤石', axis: '3L⁴ + 4L³ + 6L² + 9P + C', shape: { g: '-43m', seed: [1, 0.6, 0] }, faces: '24', fixed: true,
-    desc: '二十四个三角形晶面（hk0 型），立方体每个面隆起四棱锥；属 m3̄m，含 9 个对称面和对称中心，与六四面体（4̄3m）不同。' }
+    desc: '二十四个三角形晶面（{hk0} 型），立方体每个面隆起四棱锥；属 m3̄m，含 9 个对称面和对称中心，与六四面体（4̄3m）不同。' }
 ];
+
+/* ==========================================================
+   单形符号（一律用大括弧）
+   s    : 单形符号
+   note : 补充说明（如柱状晶体的顶、底面）
+   ========================================================== */
+const FORM_SYM = {
+  1:  { s: '',        note: '开形，没有唯一的单形符号；具体晶面随所在晶类而定' },
+  2:  { s: '',        note: '开形，没有唯一的单形符号；柱体顶、底面常为 {001}' },
+  3:  { s: '{0kl}' },
+  4:  { s: '{0kl}' },
+  5:  { s: '{hk0}' },
+  6:  { s: '{hkl}' },
+  7:  { s: '{hkl}' },
+  8:  { s: '{hkl}' },
+  9:  { s: '{h0h̄l}' },
+  10: { s: '{h0h̄l}' },
+  11: { s: '{hkīl}' },
+  12: { s: '{hkīl}' },
+  13: { s: '{hkīl}' },
+  14: { s: '{h0l}' },
+  15: { s: '{h0l}' },
+  16: { s: '{hkl}' },
+  17: { s: '{hkl}' },
+  18: { s: '{hkl}' },
+  19: { s: '{hkl}' },
+  20: { s: '{h0h̄l}' },
+  21: { s: '{h0h̄l}' },
+  22: { s: '{h0h̄l}' },
+  23: { s: '{hkīl}' },
+  24: { s: '{hkīl}' },
+  25: { s: '{hkīl}' },
+  26: { s: '{hkīl}' },
+  27: { s: '{hkl}' },
+  28: { s: '{hkl}' },
+  29: { s: '{hkl}' },
+  30: { s: '{hkl}' },
+  31: { s: '{hkl}' },
+  32: { s: '{10ī0}' },
+  33: { s: '{hkī0}' },
+  34: { s: '{100}' },
+  35: { s: '{hk0}' },
+  36: { s: '{10ī0}' },
+  37: { s: '{hkī0}' },
+  38: { s: '{100}' },
+  39: { s: '{111}' },
+  40: { s: '{111}' },
+  41: { s: '{110}' },
+  42: { s: '{hk0}' },
+  43: { s: '{hhl}' },
+  44: { s: '{hkk}' },
+  45: { s: '{hkk}' },
+  46: { s: '{hhl}' },
+  47: { s: '{hk0}' }
+};
 
 /* ==========================================================
    单形实际（几何）对称型
@@ -2015,22 +2102,22 @@ const SYM = {
   15: { g: '4/mmm', txt: 'L⁴4L²5PC（D₄ₕ）' },
   16: { g: '422',   txt: 'L⁴4L²（D₄）' },
   17: { g: '4mm',   txt: 'L⁴4P（C₄ᵥ）' },
-  18: { g: '-42m',  txt: 'Li⁴2L²2P（D₂d）' },
+  18: { g: '-42m',  txt: 'L⁴ᵢ2L²2P（D₂d）' },
   19: { g: '4/mmm', txt: 'L⁴4L²5PC（D₄ₕ）' },
   20: { g: '6mm',   txt: 'L⁶6P（C₆ᵥ）' },
-  21: { g: '-6m2',  txt: 'L³3L²4P（D₃ₕ，= Li⁶3L²3P）' },
+  21: { g: '-6m2',  txt: 'L³3L²4P（D₃ₕ，= L⁶ᵢ3L²3P）' },
   22: { g: '6/mmm', txt: 'L⁶6L²7PC（D₆ₕ）' },
   23: { g: '622',   txt: 'L⁶6L²（D₆）' },
   24: { g: '6mm',   txt: 'L⁶6P（C₆ᵥ）' },
-  25: { g: '-6m2',  txt: 'L³3L²4P（D₃ₕ；另一写法 Li⁶3L²3P）' },
+  25: { g: '-6m2',  txt: 'L³3L²4P（D₃ₕ；另一写法 L⁶ᵢ3L²3P）' },
   26: { g: '6/mmm', txt: 'L⁶6L²7PC（D₆ₕ）' },
   27: { g: '23',    txt: '3L²4L³（T）' },
   28: { g: 'm3',    txt: '3L²4L³3PC（Tₕ）' },
   29: { g: '432',   txt: '3L⁴4L³6L²（O）' },
   30: { g: '-43m',  txt: '3L⁴ᵢ4L³6P（Td）' },
   31: { g: 'm3m',   txt: '3L⁴4L³6L²9PC（Oₕ）' },
-  32: { g: '-6m2',  txt: 'L³3L²4P（D₃ₕ，= Li⁶3L²3P）' },
-  33: { g: '-6m2',  txt: 'L³3L²4P（D₃ₕ，= Li⁶3L²3P）' },
+  32: { g: '-6m2',  txt: 'L³3L²4P（D₃ₕ，= L⁶ᵢ3L²3P）' },
+  33: { g: '-6m2',  txt: 'L³3L²4P（D₃ₕ，= L⁶ᵢ3L²3P）' },
   34: { g: '4/mmm', txt: 'L⁴4L²5PC（D₄ₕ）' },
   35: { g: '4/mmm', txt: 'L⁴4L²5PC（D₄ₕ）' },
   36: { g: '6/mmm', txt: 'L⁶6L²7PC（D₆ₕ）' },
@@ -2048,7 +2135,7 @@ const SYM = {
 };
 function buildSpecial(kind) {
   /* 面向默认相机的平面基：n 指向观察者（晶体 y 轴映射为世界 -z） */
-  const nP = norm([0.44, -0.83, 0.34]);
+  const nP = norm([-0.62, -0.62, 0.48]);
   const uH = norm(cross([0, 0, 1], nP));
   const vV = norm(cross(nP, uH));
   const quad = (c, hw, hh) => {
@@ -2068,13 +2155,9 @@ function buildSpecial(kind) {
 
   if (kind === 'pinacoid') {
     const v = [], f = [];
-    /* 两个平行面沿法线分开；后面一片再沿面内方向错开，便于同时看见 */
-    const c1 = nP.map(x => x * 0.58);
-    const c2 = [
-      -nP[0] * 0.58 + uH[0] * 0.92,
-      -nP[1] * 0.58 + uH[1] * 0.92,
-      -nP[2] * 0.58 + uH[2] * 0.92
-    ];
+    /* 两个平行面沿法线对称分开，保证对称中心、二次轴、对称面都与形体严格一致 */
+    const c1 = nP.map(x => x * 0.72);
+    const c2 = nP.map(x => x * -0.72);
     [c1, c2].forEach(c => {
       const base = v.length;
       quad(c, 1.04, 0.76).forEach(p => v.push(p));
@@ -2151,7 +2234,7 @@ function normalizePoly(poly, target = 3.0) {
 
 /* 供测试输出 */
 if (typeof module !== 'undefined') {
-  module.exports = { DATA, SYM, G, buildShape, buildSpecial, normalizePoly, orbitPlanes, symmetryAxes, symmetryPlanes, hasInversion, buildPoly, dir, mm, INV, rotZ, closeGroup, PG };
+  module.exports = { DATA, FORM_SYM, SYM, G, buildShape, buildSpecial, normalizePoly, orbitPlanes, symmetryAxes, symmetryPlanes, hasInversion, buildPoly, dir, mm, INV, rotZ, closeGroup, PG };
 }
 </script>
 <script>
@@ -2174,6 +2257,30 @@ if (typeof module !== 'undefined') {
     '低级晶族': 'low', '中级晶族': 'mid', '高级晶族': 'high'
   };
   const CATEGORIES = ['低级晶族', '中级晶族', '高级晶族'];
+  /* 目录展示顺序：按「晶族 → 晶系 → 单形族（单锥/双锥/柱/复锥/复柱/其他）」
+     排，与教材图版习惯一致；内部 id 不变，只影响列表编号与左右方向键 */
+  const DISP_ORDER = [
+    1, 2,            /* 三斜：单面、平行双面 */
+    3, 4, 5,         /* 单斜：轴双面、反映双面、斜方柱 */
+    6, 7, 8,         /* 斜方：四面体、单锥、双锥 */
+    9, 21, 32,       /* 三方：单锥、双锥、三方柱 */
+    12, 25, 33,      /* 三方：复三方单锥、复三方双锥、复三方柱 */
+    10, 11, 13,      /* 三方：菱面体、偏方面体、复三方偏三角面体 */
+    14, 15, 34,      /* 四方：单锥、双锥、四方柱 */
+    17, 19, 35,      /* 四方：复四方单锥、复四方双锥、复四方柱 */
+    16, 18,          /* 四方：偏方面体、偏三角面体 */
+    20, 22, 36,      /* 六方：单锥、双锥、六方柱 */
+    24, 26, 37,      /* 六方：复六方单锥、复六方双锥、复六方柱 */
+    23,              /* 六方：偏方面体 */
+    38, 39, 40,      /* 等轴：立方体、八面体、四面体 */
+    41, 42,          /* 等轴：菱形十二面体、五角十二面体 */
+    44, 43,          /* 等轴：四角三八面体、三角三八面体 */
+    46, 45,          /* 等轴：四角三四面体、三角三四面体 */
+    47, 30, 31,      /* 等轴：四六面体、六四面体、六八面体 */
+    27, 28, 29       /* 等轴：五角三四面体、偏方复十二面体、五角三八面体 */
+  ];
+  const DISP_RANK = {};
+  DISP_ORDER.forEach((id, i) => { DISP_RANK[id] = i; });
   const EN_SYS = {
     '三斜晶系': 'Triclinic', '单斜晶系': 'Monoclinic', '斜方晶系': 'Orthorhombic',
     '三方晶系': 'Trigonal', '四方晶系': 'Tetragonal', '六方晶系': 'Hexagonal',
@@ -2216,6 +2323,21 @@ if (typeof module !== 'undefined') {
     '-43m': { 2: '4i' },
     '-42m': { z: '4i' }
   };
+  /* 平行双面：同一单形在不同晶类中对称要素不同，按取向切换
+     PIN_N 与 engine.js 中 buildSpecial('pinacoid') 的基准法线一致 */
+  const PIN_N = norm([-0.62, -0.62, 0.48]);
+  /* 平行双面在 2 类里要由二次轴把两个面互相转过去，轴必须落在晶面内（⊥ 法线） */
+  const PIN_U = norm([PIN_N[1], -PIN_N[0], 0]);
+  const PIN_VARIANTS = {
+    '-1':  { g: '-1',  intl: '1̄',  point: 'Cᵢ',  habit: 'C',    txt: 'C（Cᵢ）',
+             sys: '三斜晶系', ex: '斜长石的 {010} 板面' },
+    '2':   { g: '2',   intl: '2',   point: 'C₂',  habit: 'L²',   txt: 'L²（C₂）',
+             sys: '单斜晶系', ex: '—（2 类少见；教材多以石膏 {010} 代表，属 2/m 类）' },
+    'm':   { g: 'm',   intl: 'm',   point: 'Cₛ',  habit: 'P',    txt: 'P（Cₛ）',
+             sys: '单斜晶系', ex: '—（m 类少见；板状晶体的板面多为 2/m 类，如石膏 {010}）' },
+    '2/m': { g: '2/m', intl: '2/m', point: 'C₂ₕ', habit: 'L²PC', txt: 'L²PC（C₂ₕ）',
+             sys: '单斜晶系', ex: '石膏 {010}（板状晶体的板面）' }
+  };
   /* 定向坐标轴配色：X 红、Y 绿、Z 蓝、U 橙 */
   const ORIENT_COLOR = {
     X: { css: '#ff7b72', hex: 0xff7b72 },
@@ -2242,6 +2364,7 @@ if (typeof module !== 'undefined') {
   const exampleVal = document.getElementById('exampleVal');
   const miniRow = document.getElementById('miniRow');
   const chiralCtrl = document.getElementById('chiralCtrl');
+  const varCtrl = document.getElementById('varCtrl');
   const footNote = document.getElementById('footNote');
   const btnRotate = document.getElementById('btnRotate');
   const btnAxes = document.getElementById('btnAxes');
@@ -2259,6 +2382,8 @@ if (typeof module !== 'undefined') {
   const stereoFigure = document.getElementById('stereoFigure');
   const stereoLegend = document.getElementById('stereoLegend');
   const stereoSub = document.getElementById('stereoSub');
+  const stereoExtra = document.getElementById('stereoExtra');
+  const btnPoles = document.getElementById('btnPoles');
 
   /* ---------------- three.js ---------------- */
   let renderer, scene, camera, controls, root, axesGroup, planesGroup, centerGroup, orientGroup;
@@ -2266,6 +2391,7 @@ if (typeof module !== 'undefined') {
   let currentPoly = null;
   let currentInfo = null;
   let mirror = false;
+  let pinVariant = null;
   let axesOn = false;
   let planesOn = false;
   let centerOn = false;
@@ -2651,18 +2777,41 @@ if (typeof module !== 'undefined') {
     return new THREE.Vector3(v[0] * cs - v[1] * sn, v[2], -(v[0] * sn + v[1] * cs)).normalize();
   }
 
+  /* 平行双面按所选晶类给出对称要素；其余单形取 SYM 表中的形体几何对称 */
+  function pinVariantDef() {
+    return (current && current.id === 2 && pinVariant) ? PIN_VARIANTS[pinVariant] : null;
+  }
+
+  function symElements() {
+    const v = pinVariantDef();
+    if (v) {
+      return {
+        axes: pinVariant === '2' ? [{ dir: PIN_U, order: 2 }]
+            : (pinVariant === '2/m' ? [{ dir: PIN_N, order: 2 }] : []),
+        planes: (pinVariant === 'm' || pinVariant === '2/m') ? [PIN_N] : [],
+        inv: pinVariant === '-1' || pinVariant === '2/m',
+        relabel: {}
+      };
+    }
+    const s = current && symOf(current);
+    const g = s && G[s.g];
+    if (!g) return { axes: [], planes: [], inv: false, relabel: {} };
+    return {
+      axes: symmetryAxes(g),
+      planes: symmetryPlanes(g),
+      inv: hasInversion(g),
+      relabel: AXIS_RELABEL[s.g] || {}
+    };
+  }
+
   function buildAxes() {
     clearGroup(axesGroup);
     if (!current) return;
-    const s = symOf(current);
-    if (!s) return;
-    const g = G[s.g];
-    if (!g) return;
-
+    const els = symElements();
     const spin = symSpin();
-    const list = symmetryAxes(g);
+    const list = els.axes;
     const R = 2.22;
-    const relabel = AXIS_RELABEL[s.g] || {};
+    const relabel = els.relabel;
 
     list.forEach(a => {
       const len = Math.hypot(a.dir[0], a.dir[1], a.dir[2]) || 1;
@@ -2692,13 +2841,10 @@ if (typeof module !== 'undefined') {
   function buildPlanes() {
     clearGroup(planesGroup);
     if (!current) return;
-    const s = symOf(current);
-    if (!s) return;
-    const g = G[s.g];
-    if (!g) return;
+    const els = symElements();
 
     const spin = symSpin();
-    const list = symmetryPlanes(g);
+    const list = els.planes;
     const S = 4.6;
     const front = new THREE.Vector3(0, 0, 1);
 
@@ -2731,10 +2877,8 @@ if (typeof module !== 'undefined') {
   function buildCenter() {
     clearGroup(centerGroup);
     if (!current) return;
-    const s = symOf(current);
-    if (!s) return;
-    const g = G[s.g];
-    if (!g || !hasInversion(g)) { centerGroup.visible = centerOn; return; }
+    const els = symElements();
+    if (!els.inv) { centerGroup.visible = centerOn; return; }
 
     const dot = new THREE.Mesh(
       new THREE.SphereGeometry(0.055, 16, 12),
@@ -2903,12 +3047,19 @@ if (typeof module !== 'undefined') {
   }
 
   /* ---------------- 列表 ---------------- */
+  let dispNo = {};          /* 内部 id -> 目录编号 */
+  let displayOrder = [];    /* 目录顺序（内部 id） */
+
   function pad(id) {
+    if (dispNo[id]) return String(dispNo[id]).padStart(2, '0');
     return typeof id === 'number' ? String(id).padStart(2, '0') : '补';
   }
 
   function buildList() {
     let html = '';
+    let seq = 0;
+    dispNo = {};
+    displayOrder = [];
     CATEGORIES.forEach(cat => {
       const items = DATA.filter(d => d.cat === cat);
       if (!items.length) return;
@@ -2917,9 +3068,14 @@ if (typeof module !== 'undefined') {
       const systems = [];
       items.forEach(it => { if (!systems.includes(it.sys)) systems.push(it.sys); });
       systems.forEach(sys => {
-        const sub = items.filter(d => d.sys === sys);
+        const sub = items.filter(d => d.sys === sys)
+          .sort((a, b) => (DISP_RANK[a.id] == null ? 999 : DISP_RANK[a.id]) -
+                          (DISP_RANK[b.id] == null ? 999 : DISP_RANK[b.id]));
         html += '<div class="sub-head">' + sys + '<em>' + sub.length + '</em></div>';
         sub.forEach(it => {
+          seq += 1;
+          dispNo[it.id] = seq;
+          displayOrder.push(it.id);
           html += '<button class="item" data-id="' + it.id + '">' +
             '<span class="num">' + pad(it.id) + '</span>' +
             '<span class="nm">' + it.name + '</span>' +
@@ -2952,13 +3108,25 @@ if (typeof module !== 'undefined') {
   }
 
   /* ---------------- 信息面板 ---------------- */
-  function symText(it) { return it.axis || '—'; }
+  function symText(it) {
+    const v = pinVariantDef();
+    return v ? v.txt : (it.axis || '—');
+  }
+
+  function actualSymText(it) {
+    if (it.id === 2) return '—（开形，随所在晶类而定）';
+    return (SYM[it.id] && SYM[it.id].txt) || it.axis || '—';
+  }
 
   function symCounts(it) {
-    const s = SYM[it.id];
-    const g = s && G[s.g];
-    if (!g) return { p: 0, c: false };
-    return { p: symmetryPlanes(g).length, c: hasInversion(g) };
+    const els = symElements();
+    return { p: els.planes.length, c: els.inv };
+  }
+
+  function formSymText(it) {
+    const f = FORM_SYM[it.id];
+    if (!f || !f.s) return '—';
+    return f.s + (f.note ? ' · ' + f.note : '');
   }
 
   function updateInfo() {
@@ -2967,33 +3135,48 @@ if (typeof module !== 'undefined') {
     const open = isOpen(it);
     const chiral = !!it.chiral;
     const sc = symCounts(it);
-    const actual = (SYM[it.id] && SYM[it.id].txt) || it.axis || '—';
+    const vd = pinVariantDef();
+    const actual = actualSymText(it);
+    const habit = vd ? vd.habit : it.habit;
+    const intl = vd ? vd.intl : it.intl;
+    const point = vd ? vd.point : it.point;
+    const sysDisp = vd ? vd.sys : it.sys;
 
     eyebrow.textContent = '单形档案 · ' + pad(it.id);
     hudNo.textContent = pad(it.id);
     hudName.textContent = it.name;
-    let meta = '<span>' + it.sys + '</span><span class="sep"></span><span>' + it.point +
+    let meta = '<span>' + sysDisp + '</span><span class="sep"></span><span>' + point +
       '</span><span class="sep"></span><span><b>' + info.F + '</b> 个晶面</span>';
     if (open) meta += '<span class="sep"></span><span>开放形</span>';
     if (chiral) meta += '<span class="sep"></span><span><b>' + (mirror ? '右形' : '左形') + '</b></span>';
     hudMeta.innerHTML = meta;
-    hudEn.textContent = (EN_NAME[it.id] || '') + ' · ' + (EN_SYS[it.sys] || '');
+    hudEn.textContent = (EN_NAME[it.id] || '') + ' · ' + (EN_SYS[sysDisp] || '');
 
-    let tags = '<span class="tag sys">' + it.sys + '</span>';
+    let tags = '<span class="tag sys">' + sysDisp + '</span>';
     if (open) tags += '<span class="tag open">开放形</span>';
     if (chiral) tags += '<span class="tag">' + (mirror ? '右形' : '左形') + '</span>';
     tagsEl.innerHTML = tags;
 
-    exampleVal.textContent = it.ex || '—';
+    exampleVal.textContent = (vd && vd.ex) ? vd.ex : (it.ex || '—');
 
     factsEl.innerHTML =
-      fact('晶类（习惯）', it.habit) +
-      fact('晶类（国际）', it.intl + ' · ' + it.point) +
-      fact('单形实际对称型', actual, 'wide') +
+      fact('晶类（国际符号 · LPC）', intl + ' · ' + habit, 'wide') +
+      fact('单形符号', formSymText(it), 'wide') +
+      fact('形体几何对称', actual, 'wide') +
       fact('对称面 P', sc.p ? sc.p + ' 个' : '无') +
       fact('对称中心 C', sc.c ? '有' : '无');
 
     let d = it.desc;
+    const clsKey = GMAP[intl] || intl;
+    const shapeKey = vd ? vd.g : ((SYM[it.id] && SYM[it.id].g) || '');
+    if (shapeKey && shapeKey !== clsKey) {
+      d += '<br><br><span style="color:#7c869b">图中对称要素按多面体形体自身的几何对称绘制，可高于所属晶类的对称型。</span>';
+    }
+    if (vd) {
+      d += '<br><br><span style="color:#7c869b">四个晶类按钮切换的是同一个几何形态所处的对称环境：' +
+        '1̄ 属三斜晶系，2、m、2/m 属单斜晶系。图中多面体只表示两个平行面，不代表某个具体矿物；' +
+        '典型矿物随晶类而变（见上方）。</span>';
+    }
     if (chiral) {
       d += '<br><br><span style="color:#7c869b">当前展示' + (mirror ? '右形' : '左形') +
         '（' + (mirror ? '左形' : '右形') + '的镜像），可用下方“手性对映”控件切换。</span>';
@@ -3007,6 +3190,11 @@ if (typeof module !== 'undefined') {
     chiralCtrl.style.display = chiral ? 'flex' : 'none';
     chiralCtrl.querySelectorAll('button').forEach(b => {
       b.classList.toggle('on', (b.dataset.m === '1') === mirror);
+    });
+
+    varCtrl.style.display = it.id === 2 ? 'flex' : 'none';
+    varCtrl.querySelectorAll('button').forEach(b => {
+      b.classList.toggle('on', b.dataset.v === (pinVariant || '-1'));
     });
 
     if (isOpen(it)) footNote.textContent = '开放形 · 不封闭空间';
@@ -3032,17 +3220,21 @@ if (typeof module !== 'undefined') {
 
   /* ---------------- 极射赤平投影 ----------------
      约定：晶体坐标 z（c 轴）垂直纸面向外，x（a）向右，y（b）向上。
-     极点 (x,y,z) -> (x/(1+z), y/(1+z))；只取上半球，竖直轴落在圆心，
-     水平轴两端都落在基圆上，倾斜轴只画上端。对称面画上半球大圆弧。 */
+     上半球：r = tan(θ/2) = x/(1+z)。
+     下半球按「赤道面镜像」折到上半球——方位角不变、只翻 z，
+     故 r = √((1-|z|)/(1+|z|))，下半球极点与正上方（或正下方）极点重合。
+     对称面画上半球大圆弧。 */
   const SR = 158, SC = 200;
   const AX_LABEL = { '2': 'L²', '3': 'L³', '4': 'L⁴', '6': 'L⁶', '4i': 'L⁴ᵢ' };
   let stereoOpen = false;
+  let stereoPoles = true;
 
   function stereoPoint(d) {
     const L = Math.hypot(d[0], d[1], d[2]) || 1;
-    let x = d[0] / L, y = d[1] / L, z = d[2] / L;
-    if (z < -1e-9) { x = -x; y = -y; z = -z; }
-    return [SC + SR * x / (1 + z), SC - SR * y / (1 + z), z];
+    const x = d[0] / L, y = d[1] / L, z = d[2] / L;
+    const rho = Math.hypot(x, y);
+    const s = rho > 1e-9 ? Math.sqrt((1 - Math.abs(z)) / (1 + Math.abs(z))) / rho : 0;
+    return [SC + SR * x * s, SC - SR * y * s, z];
   }
 
   function hexPts(x, y, r) {
@@ -3055,14 +3247,13 @@ if (typeof module !== 'undefined') {
   }
 
   /* radial：极点相对投影圆心的方向角（屏幕坐标，向下为正）；null 表示圆心处
-     tangential：基圆上的水平轴，椭圆长轴与半径垂直（圆内倾斜轴则长轴沿半径） */
-  function stereoMark(key, x, y, radial, tangential) {
+     表 4-1：L² 一律画椭圆，长轴垂直于所在半径（基圆上即切向），故恒加 90° */
+  function stereoMark(key, x, y, radial) {
     const c = (AXIS_COLOR[key] || { css: '#eef1f8' }).css;
     const dark = '#0a0e17';
     x = +x.toFixed(1); y = +y.toFixed(1);
-    const deg = radial == null ? 0 : radial * 180 / Math.PI + (tangential ? 90 : 0);
+    const deg = radial == null ? 0 : radial * 180 / Math.PI + 90;
     if (key === '2') {
-      /* 表 4-1：L² 为椭圆；圆上长轴切向，圆内长轴沿径向 */
       return '<ellipse cx="' + x + '" cy="' + y + '" rx="8.4" ry="3.6" fill="' + c +
         '" stroke="' + dark + '" stroke-width="1.9"' +
         (radial == null ? '' : ' transform="rotate(' + deg.toFixed(1) + ' ' + x + ' ' + y + ')"') + '/>';
@@ -3101,33 +3292,110 @@ if (typeof module !== 'undefined') {
       n[2] * e1[0] - n[0] * e1[2],
       n[0] * e1[1] - n[1] * e1[0]
     ];
-    const run = [];
-    const cmds = [];
     const N = 180;
-    /* z(t) = e2z·sin t，上半球恒为 t∈[π,2π]，端点落在基圆上 */
+    /* z(t) = e2z·sin t：只在 z ≥ 0 的那半个圆周上取样（跨度正好 π），
+       两个端点都落在基圆上。若按整圆取样、再筛掉 z < 0 的点，
+       首尾两个端点会被连成一条穿过圆心的直线，等于凭空多画一条弦。 */
+    const t0 = e2[2] < 0 ? Math.PI : 0;
+    const run = [];
     for (let i = 0; i <= N; i++) {
-      const t = i / N * Math.PI * 2;
+      const t = t0 + i / N * Math.PI;
       const ct = Math.cos(t), st = Math.sin(t);
       const p = [e1[0] * ct + e2[0] * st, e1[1] * ct + e2[1] * st, e1[2] * ct + e2[2] * st];
-      if (p[2] >= -1e-9) run.push(stereoPoint(p));
+      run.push(stereoPoint(p));
     }
-    if (run.length > 1) {
-      cmds.push('M' + run[0][0].toFixed(1) + ' ' + run[0][1].toFixed(1) +
-        run.slice(1).map(q => 'L' + q[0].toFixed(1) + ' ' + q[1].toFixed(1)).join(''));
+    return { d: 'M' + run[0][0].toFixed(1) + ' ' + run[0][1].toFixed(1) +
+      run.slice(1).map(q => 'L' + q[0].toFixed(1) + ' ' + q[1].toFixed(1)).join('') };
+  }
+
+  /* ---------------- 晶面极点 ----------------
+     面法线取晶体坐标（未加展示用 yaw）：闭合多面体的面自带 f.n，
+     特殊开放面没有 f.n，则把顶点反算回晶体坐标后重算。 */
+  function crystalVerts(poly, spin) {
+    const cs = Math.cos(spin), sn = Math.sin(spin);
+    return poly.verts.map(w => {
+      const a = w[0], b = -w[2];
+      return [a * cs + b * sn, -a * sn + b * cs, w[1]];
+    });
+  }
+  function newellNormal(idx, vs) {
+    let nx = 0, ny = 0, nz = 0;
+    for (let i = 0; i < idx.length; i++) {
+      const p = vs[idx[i]], q = vs[idx[(i + 1) % idx.length]];
+      nx += (p[1] - q[1]) * (p[2] + q[2]);
+      ny += (p[2] - q[2]) * (p[0] + q[0]);
+      nz += (p[0] - q[0]) * (p[1] + q[1]);
     }
-    return { d: cmds.join(' ') };
+    return [nx, ny, nz];
+  }
+  function facePoleDirs(poly) {
+    if (!poly || !poly.verts || !poly.faces) return [];
+    const needCalc = poly.faces.some(f => !f.n);
+    const spin = current ? (SPIN[current.sys] || 0) * DEG : 0;
+    const vs = needCalc ? crystalVerts(poly, spin) : null;
+    const out = [], seen = {};
+    poly.faces.forEach(f => {
+      let n = f.n ? f.n.slice() : newellNormal(f.idx, vs);
+      if (!f.n) {
+        let cx = 0, cy = 0, cz = 0;
+        f.idx.forEach(i => { cx += vs[i][0]; cy += vs[i][1]; cz += vs[i][2]; });
+        cx /= f.idx.length; cy /= f.idx.length; cz /= f.idx.length;
+        if (n[0] * cx + n[1] * cy + n[2] * cz < 0) n = [-n[0], -n[1], -n[2]];
+      }
+      const L = Math.hypot(n[0], n[1], n[2]) || 1;
+      n = [n[0] / L, n[1] / L, n[2] / L];
+      const key = n.map(v => Math.round(v * 1e4)).join(',');
+      if (seen[key]) return;
+      seen[key] = 1;
+      out.push(n);
+    });
+    return out;
+  }
+  /* 上下半球折叠到同一投影圆；重合的极点合并为一组 */
+  function poleGroups(dirs) {
+    const map = {};
+    dirs.forEach(n => {
+      const p = stereoPoint(n);
+      const key = Math.round(p[0] * 2) / 2 + '|' + Math.round(p[1] * 2) / 2;
+      if (!map[key]) map[key] = { x: p[0], y: p[1], up: false, down: false };
+      if (n[2] < -1e-9) map[key].down = true;
+      else map[key].up = true;
+    });
+    return Object.keys(map).map(k => map[k]);
+  }
+  function poleGlyph(g) {
+    const x = +g.x.toFixed(1), y = +g.y.toFixed(1);
+    const both = g.up && g.down;
+    let s = '';
+    if (g.up) {
+      const r = both ? 7.0 : 5.7;
+      s += '<circle cx="' + x + '" cy="' + y + '" r="' + r + '" fill="none" stroke="#0a0e17" stroke-width="4.4"/>' +
+        '<circle cx="' + x + '" cy="' + y + '" r="' + r + '" fill="none" stroke="#f2c078" stroke-width="1.9"/>';
+    }
+    if (g.down) {
+      const r = both ? 4.8 : 6.2;
+      const d = 'M' + (x - r) + ' ' + (y - r) + 'L' + (x + r) + ' ' + (y + r) +
+        'M' + (x + r) + ' ' + (y - r) + 'L' + (x - r) + ' ' + (y + r);
+      s += '<path d="' + d + '" fill="none" stroke="#0a0e17" stroke-width="4.2" stroke-linecap="round"/>' +
+        '<path d="' + d + '" fill="none" stroke="#f2c078" stroke-width="1.9" stroke-linecap="round"/>';
+    }
+    return '<g class="pole" data-up="' + (g.up ? 1 : 0) + '" data-down="' + (g.down ? 1 : 0) + '">' + s + '</g>';
   }
 
   function renderStereo() {
     if (!current) return;
-    const s = symOf(current);
-    const g = s && G[s.g];
-    if (!g) return;
-    const axes = symmetryAxes(g);
-    const planes = symmetryPlanes(g);
-    const inv = hasInversion(g);
-    const relabel = AXIS_RELABEL[s.g] || {};
+    const els = symElements();
+    const axes = els.axes;
+    const planes = els.planes;
+    const inv = els.inv;
+    const relabel = els.relabel;
+    /* 对称要素是晶体坐标下的方向；个别单形（如 #10 菱面体）的晶面相对
+       标准方位转过一个角度，需要补上同样的 yaw 才能与极点对齐 */
+    const spin = (current.axesSpin || 0) * DEG;
+    const cs = Math.cos(spin), sn = Math.sin(spin);
+    const rot = d => [d[0] * cs - d[1] * sn, d[0] * sn + d[1] * cs, d[2]];
     const out = [];
+    const pGroups = stereoPoles ? poleGroups(facePoleDirs(currentPoly)) : [];
 
     out.push('<defs><radialGradient id="stg" cx="50%" cy="42%" r="64%">' +
       '<stop offset="0%" stop-color="#7ea0eb" stop-opacity=".14"/>' +
@@ -3137,7 +3405,7 @@ if (typeof module !== 'undefined') {
     /* 对称面：上半球大圆弧；水平面与基圆重合 */
     let hasHoriz = false;
     planes.forEach(n => {
-      const p = planePath(n);
+      const p = planePath(rot(n));
       if (p.ring) { hasHoriz = true; return; }
       if (p.d) out.push('<path d="' + p.d + '" fill="none" stroke="#8fd2ff" stroke-opacity=".9"' +
         ' stroke-width="1.9" stroke-linecap="round"/>');
@@ -3151,8 +3419,9 @@ if (typeof module !== 'undefined') {
     const counts = {};
     let hasVertAxis = false;
     axes.forEach(a => {
-      const len = Math.hypot(a.dir[0], a.dir[1], a.dir[2]) || 1;
-      const dz = a.dir[2] / len;
+      const dir = rot(a.dir);
+      const len = Math.hypot(dir[0], dir[1], dir[2]) || 1;
+      const dz = dir[2] / len;
       const vert = Math.abs(dz) > 0.995;
       const horiz = Math.abs(dz) < 1e-4;
       const key = String((vert && relabel.z) ? relabel.z : (relabel[a.order] || a.order));
@@ -3161,11 +3430,11 @@ if (typeof module !== 'undefined') {
         hasVertAxis = true;
         out.push(stereoMark(key, SC, SC));
       } else {
-        const q = stereoPoint(a.dir);
-        out.push(stereoMark(key, q[0], q[1], Math.atan2(q[1] - SC, q[0] - SC), horiz));
+        const q = stereoPoint(dir);
+        out.push(stereoMark(key, q[0], q[1], Math.atan2(q[1] - SC, q[0] - SC)));
         if (horiz) {
-          const q2 = stereoPoint([-a.dir[0], -a.dir[1], -a.dir[2]]);
-          out.push(stereoMark(key, q2[0], q2[1], Math.atan2(q2[1] - SC, q2[0] - SC), true));
+          const q2 = stereoPoint([-dir[0], -dir[1], -dir[2]]);
+          out.push(stereoMark(key, q2[0], q2[1], Math.atan2(q2[1] - SC, q2[0] - SC)));
         }
       }
     });
@@ -3183,6 +3452,9 @@ if (typeof module !== 'undefined') {
         '" fill="#8b95aa" font-size="12" letter-spacing="2" text-anchor="middle">无对称要素</text>');
     }
 
+    /* 晶面极点：空心圈 = 上半球，叉 = 下半球；上下重合时圈内叠叉 */
+    pGroups.forEach(g => out.push(poleGlyph(g)));
+
     /* 方位标记 */
     out.push('<text x="' + (SC + SR + 18) + '" y="' + (SC + 3.5) +
       '" fill="#6b768c" font-size="10" text-anchor="middle">a</text>');
@@ -3193,6 +3465,24 @@ if (typeof module !== 'undefined') {
       out.join('') + '</svg>';
 
     const chips = [];
+    if (pGroups.length) {
+      const hasDown = pGroups.some(g => g.down);
+      const hasBoth = pGroups.some(g => g.up && g.down);
+      chips.push('<span class="stereo-chip"><svg viewBox="0 0 24 24">' +
+        '<circle cx="12" cy="12" r="7" fill="none" stroke="#f2c078" stroke-width="1.6"/>' +
+        '</svg>上半球晶面</span>');
+      if (hasDown) {
+        chips.push('<span class="stereo-chip"><svg viewBox="0 0 24 24">' +
+          '<path d="M6.8 6.8L17.2 17.2M17.2 6.8L6.8 17.2" fill="none" stroke="#f2c078"' +
+          ' stroke-width="1.6" stroke-linecap="round"/></svg>下半球晶面</span>');
+      }
+      if (hasBoth) {
+        chips.push('<span class="stereo-chip"><svg viewBox="0 0 24 24">' +
+          '<circle cx="12" cy="12" r="7.6" fill="none" stroke="#f2c078" stroke-width="1.4"/>' +
+          '<path d="M8.7 8.7L15.3 15.3M15.3 8.7L8.7 15.3" fill="none" stroke="#f2c078"' +
+          ' stroke-width="1.4" stroke-linecap="round"/></svg>上下极点重合</span>');
+      }
+    }
     ['6', '4', '4i', '3', '2'].forEach(k => {
       if (!counts[k]) return;
       chips.push('<span class="stereo-chip"><svg viewBox="0 0 24 24">' +
@@ -3210,12 +3500,45 @@ if (typeof module !== 'undefined') {
     }
     stereoLegend.innerHTML = chips.join('');
 
-    const actual = (SYM[current.id] && SYM[current.id].txt) || current.axis || '—';
-    stereoSub.textContent = 'No.' + pad(current.id) + ' ' + current.name + ' · ' + actual;
+    const actual = actualSymText(current);
+    const fs = FORM_SYM[current.id];
+    /* 对称要素来源：图中要素与「形体几何对称」一致，还是与「所属晶类」一致 */
+    let src;
+    if (current.id === 2) src = '对称要素按上方所选晶类绘制';
+    else {
+      const clsKey = GMAP[current.intl] || current.intl;
+      const shapeKey = (SYM[current.id] && SYM[current.id].g) || '';
+      src = (shapeKey && shapeKey !== clsKey) ? '对称要素按形体几何对称绘制' : '对称要素按晶类对称型绘制';
+    }
+    stereoSub.textContent = 'No.' + pad(current.id) + ' ' + current.name + ' · ' + actual +
+      (fs && fs.s ? ' · 单形符号 ' + fs.s : '') + ' · ' + src;
+
+    let extra = '';
+    if (current.id === 1) {
+      extra = '单面只有一个晶面：投影上就是一个极点，谈不上上下折叠，也没有可叠加的对称要素。';
+    } else if (current.id === 2) {
+      extra = '两个极点互为对径、方向正好相差 180°，这就是平行双面的标志。';
+      if (pinVariant === '2') {
+        extra += 'L² 水平放置，轴的两端都落在基圆上，所以画成一对椭圆；图例里的 ×1 指一条轴。';
+      } else if (pinVariant === 'm') {
+        extra += '对称面是斜面，投影为一段从基圆一端到另一端的大圆弧（朝圆心一侧鼓出），不是直线。';
+      } else if (pinVariant === '2/m') {
+        extra += 'L² 沿晶面法线放置，极点与晶面极点重合，所以椭圆压在圈上；对称面的投影同样是一段大圆弧。';
+      }
+      extra += '切换上方四个晶类按钮，极点位置不变，变的只有把两个面联系起来的对称要素。';
+    } else if (isOpen(current)) {
+      extra = '开放形：投影只表示晶面法线的方向，这类单形单独不能围成封闭多面体。';
+    }
+    stereoExtra.textContent = extra;
+    stereoExtra.style.display = extra ? '' : 'none';
   }
 
   function openStereo() {
     stereoOpen = true;
+    if (btnPoles) {
+      btnPoles.classList.toggle('on', stereoPoles);
+      btnPoles.setAttribute('aria-pressed', String(stereoPoles));
+    }
     renderStereo();
     stereoLayer.classList.add('open');
     stereoLayer.setAttribute('aria-hidden', 'false');
@@ -3237,6 +3560,7 @@ if (typeof module !== 'undefined') {
     if (current && String(current.id) === String(it.id) && !(opts && opts.force)) return;
     current = it;
     mirror = false;
+    pinVariant = it.id === 2 ? '-1' : null;
     buildCurrent();
     updateInfo();
     setActive(it.id);
@@ -3300,6 +3624,7 @@ if (typeof module !== 'undefined') {
     mirror = m;
     buildCurrent();
     updateInfo();
+    if (stereoOpen) renderStereo();
   }
 
   btnRotate.addEventListener('click', () => setAutoRotate(!controls.autoRotate));
@@ -3311,9 +3636,25 @@ if (typeof module !== 'undefined') {
   btnStereo.addEventListener('click', () => stereoOpen ? closeStereo() : openStereo());
   stereoClose.addEventListener('click', closeStereo);
   stereoMask.addEventListener('click', closeStereo);
+  if (btnPoles) {
+    btnPoles.addEventListener('click', () => {
+      stereoPoles = !stereoPoles;
+      btnPoles.classList.toggle('on', stereoPoles);
+      btnPoles.setAttribute('aria-pressed', String(stereoPoles));
+      renderStereo();
+    });
+  }
   chiralCtrl.addEventListener('click', e => {
     const b = e.target.closest('button[data-m]');
     if (b) setMirror(b.dataset.m === '1');
+  });
+  varCtrl.addEventListener('click', e => {
+    const b = e.target.closest('button[data-v]');
+    if (!b || !current || current.id !== 2) return;
+    pinVariant = b.dataset.v;
+    rebuildSym();
+    updateInfo();
+    if (stereoOpen) renderStereo();
   });
 
   listEl.addEventListener('click', e => {
@@ -3332,11 +3673,11 @@ if (typeof module !== 'undefined') {
     if (e.key === 'Escape' && stereoOpen) { closeStereo(); return; }
     if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
     if (e.target && /INPUT|TEXTAREA/.test(e.target.tagName)) return;
-    const pool = DATA;
-    let i = pool.findIndex(d => String(d.id) === String(current.id));
+    const pool = displayOrder.length ? displayOrder.slice() : DATA.map(d => d.id);
+    let i = pool.findIndex(id => String(id) === String(current.id));
     if (i < 0) i = 0;
     const n = (i + (e.key === 'ArrowRight' ? 1 : -1) + pool.length) % pool.length;
-    select(pool[n].id);
+    select(pool[n]);
   });
 
   /* ---------------- 渲染循环 ---------------- */
